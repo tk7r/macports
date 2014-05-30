@@ -1,0 +1,12 @@
+diff --git a/cf-agent/verify_files_utils.c b/cf-agent/verify_files_utils.c
+index 00499ab..4df3014 100644
+--- cf-agent/verify_files_utils.c
++++ cf-agent/verify_files_utils.c
+@@ -2252,7 +2252,6 @@ static void VerifyCopiedFileAttributes(EvalContext *ctx, const char *src, const
+         if (!CopyFileExtendedAttributesDisk(src, dest))
+         {
+             cfPS(ctx, LOG_LEVEL_INFO, PROMISE_RESULT_FAIL, pp, attr, "Could not preserve extended attributes (ACLs and security contexts) on file '%s'", dest);
+-            return NULL;
+         }
+     }
+ }
