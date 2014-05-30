@@ -42,3 +42,7 @@ configure.args      --disable-dependency-tracking \
 livecheck.type      regex
 livecheck.url       ${homepage}source-code
 livecheck.regex     "cfengine-(\\d+(?:\\.\\d+)*).tar.gz"
+
+startupitem.create      yes
+startupitem.name        cfengine3
+startupitem.executable  /var/cfengine/bin/cf-execd -F
