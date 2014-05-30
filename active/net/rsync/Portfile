@@ -16,6 +16,7 @@ long_description    rsync is an open source utility that provides fast \
                     incremental file transfer. It works both locally and remote \
                     with either the custom rsyncd protocol or a remote shell \
                     like ssh. \
+                    \
                     Original port by gmail.com:jimjag
 
 homepage            http://samba.org/rsync/
