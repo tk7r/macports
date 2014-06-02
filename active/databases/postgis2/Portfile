@@ -10,7 +10,7 @@ license             GPL
 version             2.1.3
 epoch               1
 platforms           darwin
-maintainers         vince openmaintainer
+maintainers         lausa.at:thomas.kotzian
 
 description         PostGIS is the spatial extension to the\
                     PostGreSQL database.
@@ -18,7 +18,9 @@ description         PostGIS is the spatial extension to the\
 long_description    PostGIS 2 adds geometrical, geographical and topological\
                     types, and functions operating thereon, to the PostGreSQL\
                     database. The 2.0 release also provides raster handling\
-                    and basic 3D geometry capacities (TIN and polyhedra).
+                    and basic 3D geometry capacities (TIN and polyhedra). \
+                    \
+                    Original port by vince openmaintainer
 
 homepage            http://postgis.refractions.net/
 
