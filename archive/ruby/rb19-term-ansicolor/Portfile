@@ -1,0 +1,17 @@
+# $Id: Portfile 76803 2011-03-09 06:40:52Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           ruby 1.0
+
+ruby.setup          term-ansicolor 1.0.7 gem {} rubygems ruby19
+description         Ruby library that colors strings using ANSI escape sequences
+long_description    \
+    ${description}
+license             GPL-2
+maintainers         singingwolfboy openmaintainer
+homepage            http://flori.github.com/term-ansicolor/
+categories-append   devel
+platforms           darwin
+checksums           md5     e93cecce00004b4fca4ba1d1332ddc4e \
+                    sha1    aac6e23c71232fea9c5f035ec46f8e53651414e6 \
+                    rmd160  399535e24b376066df85ea683eabed56c40e6018

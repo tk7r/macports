@@ -1,0 +1,60 @@
+# $Id: Portfile 95074 2012-07-05 06:53:25Z mww@macports.org $
+
+PortSystem          1.0
+PortGroup           ruby 1.0
+ruby.setup          taskjuggler 3.5.0 gem {} rubygems ruby20
+# Override name so it isn't rb-sup
+name                taskjuggler3
+conflicts           taskjuggler
+categories-append   office
+license             GPL-2
+maintainers         nomaintainer
+description         Project Management beyond Gantt Chart Drawing
+long_description \
+  TaskJuggler is a modern and powerful, Free and Open Source Software project \
+  management tool. Its new approach to project planning and tracking is more \
+  flexible and superior to the commonly used Gantt chart editing tools. \
+  \
+  TaskJuggler is project management software for serious project managers. It \
+  covers the complete spectrum of project management tasks from the first idea \
+  to the completion of the project. It assists you during project scoping, \
+  resource assignment, cost and revenue planning, risk and communication \
+  management.\
+  \
+  TaskJuggler provides an optimizing scheduler that computes your project time \
+  lines and resource assignments based on the project outline and the \
+  constraints that you have provided. The built-in resource balancer and \
+  consistency checker offload you from having to worry about irrelevant details\
+  and ring the alarm if the project gets out of hand. The flexible \
+  as-many-details-as-necessary approach allows you to plan your project as you \
+  go, making it also ideal for new management strategies such as Extreme \
+  Programming and Agile Project Management. \
+  \
+  If you are about to build a skyscraper or just want to put together the \
+  release schedule of your open source project, TaskJuggler is the right tool \
+  for you. If you just want to draw nice looking Gantt charts to impress your \
+  boss or your investors, TaskJuggler might not be right for you. You can of \
+  course create nice looking Gantt charts. But it takes a little more effort \
+  to master its power. If you are up for this, TaskJuggler will become a \
+  companion that you don't want to miss anymore.
+
+platforms           darwin
+
+homepage            http://www.taskjuggler.org/
+
+checksums           md5     25a3d66a4ad0beb78927418ae70c76bf \
+                    sha1    b4de15c6252bd285a27344b97bc7bd3b337e7943 \
+                    rmd160  ce4ccc93c137edb2d8a7b5bf002ffb4b050f5c0d
+
+depends_lib-append  port:rb20-mail port:rb20-term-ansicolor
+
+variant vim74 description { add taskjuggler vim integration } {
+}
+
+post-destroot {
+  if {[variant_isset vim74]} {
+    xinstall -m 755 -d ${destroot}${prefix}/share/vim/vim74/syntax/
+    xinstall -m 755 ${destroot}${prefix}/lib/ruby2.0/gems/2.0.0/gems/taskjuggler-${version}/data/tjp.vim \
+          ${destroot}${prefix}/share/vim/vim74/syntax/
+  }
+}

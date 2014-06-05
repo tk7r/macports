@@ -1,0 +1,26 @@
+# $Id: Portfile 77109 2011-03-20 14:29:23Z singingwolfboy@macports.org $
+
+PortSystem		    1.0
+PortGroup		    ruby 1.0
+
+ruby.setup          mail 2.5.4 gem {} rubygems ruby20
+description		    A Really Ruby Mail Library
+long_description	\
+    Mail is an internet library for Ruby that is designed to handle emails \
+    generation, parsing and sending in a simple, rubyesque manner. The purpose \
+    of this library is to provide a single point of access to handle all email \
+    functions, including sending and receiving emails. All network type \
+    actions are done through proxy methods to Net::SMTP, Net::POP3 etc.
+license             MIT
+maintainers		    singingwolfboy openmaintainer
+homepage		    http://github.com/mikel/mail
+categories-append   mail
+platforms           darwin
+checksums           md5     209b00419b063d4cbfeeab01c2cfaf62 \
+                    sha1    03b1c19074973f8da94a72cb8579c5d54317934e \
+                    rmd160  4ecb28697c61e09e870ba150846c47bb2a59eff1
+
+depends_run-append  port:rb20-treetop \
+                    port:rb20-mime-types \
+                    port:rb20-i18n \
+                    port:rb20-activesupport

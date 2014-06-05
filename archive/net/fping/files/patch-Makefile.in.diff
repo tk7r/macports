@@ -1,0 +1,11 @@
+--- Makefile.in.orig	2011-07-09 00:31:30.000000000 +0200
++++ Makefile.in	2011-07-09 00:31:45.000000000 +0200
+@@ -200,7 +200,7 @@
+ 
+ 
+ fping6.o: fping.c
+-	$(COMPILE) -c fping.c -o fping6.o -DIPV6
++	$(COMPILE) -c fping.c -o fping6.o -DIPV6 -D__APPLE_USE_RFC_3542
+ 
+ fping6: $(fping6_OBJECTS) $(fping_DEPENDENCIES)
+ 	@rm -f fping6

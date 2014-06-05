@@ -1,0 +1,8 @@
+--- docs/cgi-examples/printenv.orig	2013-08-10 22:29:30.000000000 +0200
++++ docs/cgi-examples/printenv	2013-08-10 22:29:43.000000000 +0200
+@@ -1,4 +1,4 @@
+-#
++#!@PREFIX@/bin/perl
+ 
+ # To permit this cgi, replace # on the first line above with the
+ # appropriate #!/path/to/perl shebang, and on Unix / Linux also
