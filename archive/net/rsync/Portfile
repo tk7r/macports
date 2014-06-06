@@ -4,8 +4,8 @@
 PortSystem          1.0
 
 name                rsync
-version             3.1.0
-revision            1
+version             3.1.1pre2
+revision            0
 categories          net
 license             GPL-3+
 installs_libs       no
@@ -21,16 +21,17 @@ long_description    rsync is an open source utility that provides fast \
 
 homepage            http://samba.org/rsync/
 master_sites        http://rsync.samba.org/ftp/rsync/ \
-                    http://rsync.samba.org/ftp/rsync/src/
+                    http://rsync.samba.org/ftp/rsync/src/ \
+                    http://rsync.samba.org/ftp/rsync/src-previews/
 
-checksums           md5     3be148772a33224771a8d4d2a028b132 \
-                    sha1    eb58ab04bcb6293da76b83f58327c038b23fcba3 \
-                    rmd160  d072ab02c31468aa72270a4cf90b5865c5139e1b \
-                    sha256  81ca23f77fc9b957eb9845a6024f41af0ff0c619b7f38576887c63fa38e2394e
+checksums           md5     10c70c1dda98e2965b4f10003d1dfb3f \
+                    sha1    37db5ceba9879403da427b128919e8184eb252cd \
+                    rmd160  bfeb080eeba2c9bc50f23c56ae38b2f9153d7dc6 \
+                    sha256  ea2c20f5a28fb8e75fbee47c0bc68f80ddb3a035e5aabb6c32dbd2090df650d6
 
 depends_lib         port:popt port:libiconv
 
-# these come from http://rsync.samba.org/ftp/rsync/rsync-patches-3.1.0.tar.gz
+# these come from http://rsync.samba.org/ftp/rsync/rsync-patches-3.1.1pre2.tar.gz
 # and need to be updated with each release
 patchfiles          patch-fileflags.diff \
                     patch-crtimes.diff \
@@ -39,7 +40,7 @@ patchfiles          patch-fileflags.diff \
                     patch-acls-unpack-error.diff
 patch.pre_args      -p1
 
-configure.args      --with-rsyncd-conf=${prefix}/etc/rsyncd.conf
+configure.args      --with-rsyncd-conf=${prefix}/etc/rsyncd.conf --with-included-zlib
 configure.cflags   "-Os -I${prefix}/include"
 
 pre-configure {
