@@ -6,18 +6,20 @@ PortGroup       muniversal 1.0
 PortGroup       xcodeversion 1.0
 
 name            x264
-version         20140529
+version         20140716
 categories      multimedia
 license         GPL-2+
 platforms       darwin
-maintainers     devans openmaintainer
+maintainers     lausa.at:thomas.kotzian
 description     x264 - a free h264/avc encoder
 long_description \
                 x264 is a free library for encoding H264/AVC video streams. \
                 The code is written by Laurent Aimar, Eric Petit(OS X), Min \
                 Chen (vfw/nasm), Justin Clay(vfw), Måns Rullgård and Loren \
                 Merritt from scratch. It is released under the terms of the \
-                GPL license.
+                GPL license. \
+                \
+                Original port by devans openmaintainer
 homepage        http://www.videolan.org/x264.html
 master_sites    http://download.videolan.org/pub/videolan/x264/snapshots/ \
                 ftp://ftp.videolan.org/pub/videolan/x264/snapshots/
@@ -25,8 +27,8 @@ distname        ${name}-snapshot-${version}-2245-stable
 
 use_bzip2       yes
 
-checksums       rmd160  4a7450c555deefdec9c02fee0fb385f5915c7e0f \
-                sha256  c93e805651613cdd02a40caf63174fef946e40cacf1ecf0fb1dc212f9000e65b
+checksums       rmd160  e67a89a5c7c45465266f04da817412937b572a04 \
+                sha256  5568e908dfaf0cc54d8aa7022cdaee291b2cd2377ec338c0acb84961f97ddc0b
 
 minimum_xcodeversions {9 3.1}
 
