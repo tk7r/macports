@@ -1,0 +1,48 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 103062 2013-02-13 00:42:13Z larryv@macports.org $
+
+PortSystem          1.0
+
+name                cfengine36
+conflicts           cfengine cfengine3 cfengine35
+version             3.6.0
+categories          sysutils
+platforms           darwin
+license             GPL-3
+maintainers         lausa.at:thomas.kotzian
+description         network configuration-management tool
+long_description    Configuration Management Software for Agile System Administrators. \
+                    Leading open source configuration management software ensuring the \
+                    availability, security and compliance of mission critical \
+                    applications and services.
+homepage            http://cfengine.com/
+distname            cfengine-${version}
+worksrcdir          cfengine-${version}
+master_sites        https://s3.amazonaws.com/cfengine.package-repos/tarballs/
+checksums           md5     42b0d3a90a1b60bf25cf63ccd6366f59 \
+                    sha512  6baa1f2b231c607c4f28ae9bb9663a68f96deae5d9ae0238ce61a89b8a45b6f68eec24f55a1b89181b80e2fba49161cdb30598ba4130e624f4cf9fd254112ddc \
+                    rmd160  450c09a370dd813bd0d5171820199dcab842094b
+
+depends_lib         port:tokyocabinet \
+                    port:pcre \
+                    port:libxml2
+
+#patchfiles          patch-fchownat.diff \
+#                    patch-clang-fix.diff
+
+configure.args      --disable-dependency-tracking \
+                    --prefix=/var/cfengine \
+                    --with-workdir=/var/cfengine \
+                    --with-tokyocabinet=${prefix} \
+                    --with-openssl=${prefix} \
+                    --with-pcre=${prefix} \
+                    --without-mysql \
+                    --without-postgresql
+
+livecheck.type      regex
+livecheck.url       ${homepage}source-code
+livecheck.regex     "cfengine-(\\d+(?:\\.\\d+)*).tar.gz"
+
+startupitem.create      yes
+startupitem.name        cfengine36
+startupitem.executable  /var/cfengine/bin/cf-execd -F
