@@ -3,9 +3,10 @@
 
 PortSystem          1.0
 
-name                cfengine3
-conflicts           cfengine
+name                cfengine35
+conflicts           cfengine cfengine3 cfengine36
 version             3.5.3
+revision            1
 categories          sysutils
 platforms           darwin
 license             GPL-3
@@ -44,5 +45,5 @@ livecheck.url       ${homepage}source-code
 livecheck.regex     "cfengine-(\\d+(?:\\.\\d+)*).tar.gz"
 
 startupitem.create      yes
-startupitem.name        cfengine3
+startupitem.name        cfengine35
 startupitem.executable  /var/cfengine/bin/cf-execd -F
