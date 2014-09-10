@@ -9,7 +9,7 @@ PortGroup compiler_blacklist_versions 1.0
 name            ffmpeg22
 conflicts       ffmpeg-devel ffmpeg23
 epoch           1
-version         2.2.5
+version         2.2.7
 revision        1
 license         LGPL-2.1+
 categories      multimedia
@@ -57,8 +57,8 @@ master_sites    http://www.ffmpeg.org/releases/
 
 use_bzip2       yes
 
-checksums       rmd160  2584ee7fa1f5dc3608e8edef9bd5f218e1797a41 \
-                sha256  c8587a1ac91599dd87fcfb53de6e32b9ab81449e7f22ff55044faf7815a68633
+checksums       rmd160  3adda2d71b8cc79d4c70ceb73846481cea4b5f82 \
+                sha256  e01dc650bf85f05d8ec08021b281dc7b80f02c794edce49d2b95d9dace8ed8a7
 
 depends_build   port:pkgconfig \
                 port:gmake \
