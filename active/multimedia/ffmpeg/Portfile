@@ -10,7 +10,7 @@ PortGroup       active_variants 1.1
 name            ffmpeg
 conflicts       ffmpeg-devel ffmpeg22 ffmpeg23
 epoch           1
-version         2.4
+version         2.4.2
 revision        1
 license         LGPL-2.1+
 categories      multimedia
@@ -58,8 +58,8 @@ master_sites    http://www.ffmpeg.org/releases/
 
 use_bzip2       yes
 
-checksums       rmd160  ee83b658e586a1bd44e0096881ad2c23f174d98a \
-                sha256  27491a7ae22607bf3a810ff8a17d2e7046321a3750031e3e8302ad8971eec56a
+checksums       rmd160  5cc0a5a36f3b4ab833d082f88bb2dba38f6550aa \
+                sha256  974f90a9d7bde835213ab970c2190402e5d6566e47a7bb657d756ee92540fa7e
 
 depends_build   port:pkgconfig \
                 port:gmake \
@@ -84,6 +84,7 @@ depends_lib     port:lame \
                 port:libvpx \
                 port:libsdl \
                 port:bzip2 \
+                port:xz \
                 port:zlib
 
 patchfiles      patch-libdc1394.diff
@@ -130,6 +131,7 @@ configure.args \
         --enable-libspeex \
         --enable-libass \
         --enable-libbluray \
+        --enable-lzma \
         --enable-gnutls \
         --enable-fontconfig \
         --enable-libfreetype \
