@@ -1,15 +1,16 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
 # $Id: Portfile 112019 2013-10-09 19:30:17Z devans@macports.org $
 
-PortSystem 1.0
-PortGroup xcodeversion 1.0
-PortGroup muniversal 1.0
-PortGroup compiler_blacklist_versions 1.0
+PortSystem      1.0
+PortGroup       xcodeversion 1.0
+PortGroup       muniversal 1.0
+PortGroup       compiler_blacklist_versions 1.0
+PortGroup       active_variants 1.1
 
-name            ffmpeg22
-conflicts       ffmpeg-devel ffmpeg ffmpeg24
+name            ffmpeg24
+conflicts       ffmpeg-devel ffmpeg ffmpeg22
 epoch           1
-version         2.2.11
+version         2.4.4
 revision        1
 license         LGPL-2.1+
 categories      multimedia
@@ -57,8 +58,8 @@ master_sites    http://www.ffmpeg.org/releases/
 
 use_bzip2       yes
 
-checksums       rmd160  d7076f6ca85acfcabcba82645d0d8dd6267ea313 \
-                sha256  5938c460977ec3c09cacd9b98f78787948d6086eb30a65b43e09c2b8fb89541b
+checksums       rmd160  e38bae3bf539404dc8afdb2805fb717f3cacc6db \
+                sha256  9ad041c0201fb8b2605c5c5c0259c373c793c32cfc96f7315fca67e900494afc
 
 depends_build   port:pkgconfig \
                 port:gmake \
@@ -78,10 +79,12 @@ depends_lib     port:lame \
                 port:openjpeg15 \
                 port:fontconfig \
                 port:freetype \
+                port:fribidi \
                 path:lib/libspeex.dylib:speex \
                 port:libvpx \
                 port:libsdl \
                 port:bzip2 \
+                port:xz \
                 port:zlib
 
 patchfiles      patch-libdc1394.diff
@@ -128,9 +131,11 @@ configure.args \
         --enable-libspeex \
         --enable-libass \
         --enable-libbluray \
+        --enable-lzma \
         --enable-gnutls \
         --enable-fontconfig \
         --enable-libfreetype \
+        --enable-libfribidi \
         --disable-indev=jack \
         --disable-outdev=xv \
         --disable-vda \
@@ -140,6 +145,7 @@ configure.args \
 
 # disable asm on Tiger
 # libblueray doesn't build on Tiger so disable for now (#39442)
+
 platform darwin {
     if {${os.major} < 9} {
         depends_lib-delete    port:libbluray
@@ -154,6 +160,11 @@ platform darwin {
         configure.args-delete --disable-vda
         configure.args-append --enable-vda
     }
+
+    # kCVPixelFormatType_OneComponent8 used in avfoundation indev is only available on 10.8+
+    if {${os.major} < 12} {
+        configure.args-append --disable-indev=avfoundation
+    }
 }
 
 test.run        yes
@@ -165,7 +176,7 @@ test.run        yes
 post-destroot {
     file mkdir ${destroot}${prefix}/share/doc/ffmpeg
     file copy ${worksrcpath}/doc/APIchanges ${destroot}${prefix}/share/doc/ffmpeg
-    file copy ${worksrcpath}/doc/RELEASE_NOTES ${destroot}${prefix}/share/doc/ffmpeg
+    file copy ${worksrcpath}/RELEASE_NOTES ${destroot}${prefix}/share/doc/ffmpeg
     foreach f [glob ${worksrcpath}/doc/*.txt] {
         file copy $f ${destroot}${prefix}/share/doc/ffmpeg
     }
@@ -209,6 +220,19 @@ if {[variant_isset universal]} {
     }
 }
 
+# this dummy variant is used to mark whether ffmpeg is built with
+# libsdl +x11 and hence has a binary dependency on xorg-libX11
+# or libsdl -x11 and does not
+
+variant x11 {}
+default_variants +x11
+
+if {[variant_isset x11]} {
+    require_active_variants libsdl x11
+} else {
+    require_active_variants libsdl "" x11
+}
+
 variant libdc1394 description {Enable IIDC-1394 frame grabbing using libdc1394 (experimental)} {
     depends_lib-append port:libdc1394
     configure.args-append --enable-libdc1394
@@ -221,9 +245,9 @@ variant libdc1394 description {Enable IIDC-1394 frame grabbing using libdc1394 (
 # https://trac.ffmpeg.org/ticket/1700
 
 variant librtmp description {Use librtmp (from rtmpdump) as rtmp[t][es]:// protocol handler} {
-    configure.args-append     --enable-librtmp
+    configure.args-append   --enable-librtmp
 
-    depends_lib-append        port:rtmpdump
+    depends_lib-append      port:rtmpdump
 }
 
 variant gpl2 description {Enable GPL code, license will be GPL-2+} {
@@ -238,12 +262,14 @@ variant gpl2 description {Enable GPL code, license will be GPL-2+} {
 }
 
 variant gpl3 requires gpl2 description {Enable GPL code, license will be GPL-3+} {
-    configure.args-delete   --disable-libopencore-amrnb \
-                            --disable-libopencore-amrwb
     configure.args-append   --enable-version3 \
                             --enable-libopencore-amrnb \
-                            --enable-libopencore-amrwb
-    depends_lib-append      port:opencore-amr
+                            --enable-libopencore-amrwb \
+                            --enable-libsmbclient
+
+    depends_lib-append      port:opencore-amr \
+                            port:samba3
+
     license-delete          LGPL-2.1+
     license-append          GPL-3+
 }
@@ -261,34 +287,39 @@ variant nonfree description {enable nonfree code, libraries and binaries will no
     license-append          Restrictive
 }
 
-variant gcc47 description {build with the macports gcc47 toolchain} conflicts gcc48 gcc49 clang32 clang33 clang34 {
+variant gcc47 description {build with the macports gcc47 toolchain} conflicts gcc48 gcc49 clang32 clang33 clang34 clang35 {
 	depends_build-append    port:gcc47
 	configure.compiler      macports-gcc-4.7
 }
 
-variant gcc48 description {build with the macports gcc48 toolchain} conflicts gcc47 gcc49 clang32 clang33 clang34 {
+variant gcc48 description {build with the macports gcc48 toolchain} conflicts gcc47 gcc49 clang32 clang33 clang34 clang35 {
 	depends_build-append    port:gcc48
 	configure.compiler      macports-gcc-4.8
 }
 
-variant gcc49 description {build with the macports gcc49 toolchain} conflicts gcc47 gcc48 clang32 clang33 clang34 {
+variant gcc49 description {build with the macports gcc49 toolchain} conflicts gcc47 gcc48 clang32 clang33 clang34 clang35 {
 	depends_build-append    port:gcc49
 	configure.compiler      macports-gcc-4.9
 }
 
-variant clang32 description {build with macport clang-3.2 toolchain} conflicts gcc47 gcc48 gcc49 clang33 clang34 {
+variant clang32 description {build with macport clang-3.2 toolchain} conflicts gcc47 gcc48 gcc49 clang33 clang34 clang35 {
 	depends_build-append    port:clang-3.2
 	configure.compiler      macports-clang-3.2
 }
 
-variant clang33 description {build with macport clang-3.3 toolchain} conflicts gcc47 gcc48 gcc49 clang32 clang34 {
+variant clang33 description {build with macport clang-3.3 toolchain} conflicts gcc47 gcc48 gcc49 clang32 clang34 clang35 {
 	depends_build-append    port:clang-3.3
 	configure.compiler      macports-clang-3.3
 }
 
-variant clang34 description {build with macport clang-3.4 toolchain} conflicts gcc47 gcc48 gcc49 clang32 clang33 {
+variant clang34 description {build with macport clang-3.4 toolchain} conflicts gcc47 gcc48 gcc49 clang32 clang33 clang35 {
 	depends_build-append    port:clang-3.4
 	configure.compiler      macports-clang-3.4
+}
+
+variant clang35 description {build with macport clang-3.5 toolchain} conflicts gcc47 gcc48 gcc49 clang32 clang33 clang34 {
+	depends_build-append    port:clang-3.5
+	configure.compiler      macports-clang-3.5
 }
 
 if {[variant_isset nonfree]} {
@@ -320,6 +351,7 @@ notes "
 ******* The following modules are GPLed:
 *******
 *******      postproc
+*******      libsambaclient
 *******      libx264
 *******      libxvid
 *******      opencore-amr
