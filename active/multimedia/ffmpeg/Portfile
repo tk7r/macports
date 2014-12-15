@@ -87,7 +87,8 @@ depends_lib     port:lame \
                 port:xz \
                 port:zlib
 
-patchfiles      patch-libdc1394.diff
+patchfiles      patch-libdc1394.diff \
+                patch-libsmbclient.diff
 
 build.cmd       ${prefix}/bin/gmake
 build.env-append V=1
@@ -263,6 +264,9 @@ variant gpl2 description {Enable GPL code, license will be GPL-2+} {
     license-delete          LGPL-2.1+
     license-append          GPL-2+
 }
+
+# libsmbclient causes build failure when +gpl3 is selected (#46244)
+# disable until underlying cause is identified and addressed
 
 variant gpl3 requires gpl2 description {Enable GPL code, license will be GPL-3+} {
     configure.args-append   --enable-version3 \
