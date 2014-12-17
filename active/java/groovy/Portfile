@@ -4,7 +4,7 @@
 PortSystem 1.0
 
 name            groovy
-version         2.3.6
+version         2.3.8
 revision        0
 categories      java lang
 maintainers     lausa.at:thomas.kotzian
@@ -32,8 +32,8 @@ license         Apache-2
 conflicts       groovy-devel
 use_zip         yes
 
-checksums       rmd160  befc2ab6d347fe65fabb0c79d7c5139f2057b30e \
-                sha256  33e417d4b0743cd537de576b93018dfd55ee7da3892411a7bbe243a093fd940d
+checksums       rmd160  ced9927193892eb081d410123b41c189756cb744 \
+                sha256  763773906c79dfbdb7422b46477cfed4dbaf0440383620af1c4ac32041bfeb7f
 use_configure   no
 worksrcdir      groovy-${version}
 build.cmd       GRADLE_USER_HOME=${workpath} ./gradlew
