@@ -261,34 +261,39 @@ variant nonfree description {enable nonfree code, libraries and binaries will no
     license-append          Restrictive
 }
 
-variant gcc47 description {build with the macports gcc47 toolchain} conflicts gcc48 gcc49 clang32 clang33 clang34 {
+variant gcc47 description {build with the macports gcc47 toolchain} conflicts gcc48 gcc49 clang32 clang33 clang34 clang35 {
 	depends_build-append    port:gcc47
 	configure.compiler      macports-gcc-4.7
 }
 
-variant gcc48 description {build with the macports gcc48 toolchain} conflicts gcc47 gcc49 clang32 clang33 clang34 {
+variant gcc48 description {build with the macports gcc48 toolchain} conflicts gcc47 gcc49 clang32 clang33 clang34 clang35 {
 	depends_build-append    port:gcc48
 	configure.compiler      macports-gcc-4.8
 }
 
-variant gcc49 description {build with the macports gcc49 toolchain} conflicts gcc47 gcc48 clang32 clang33 clang34 {
+variant gcc49 description {build with the macports gcc49 toolchain} conflicts gcc47 gcc48 clang32 clang33 clang34 clang35 {
 	depends_build-append    port:gcc49
 	configure.compiler      macports-gcc-4.9
 }
 
-variant clang32 description {build with macport clang-3.2 toolchain} conflicts gcc47 gcc48 gcc49 clang33 clang34 {
+variant clang32 description {build with macport clang-3.2 toolchain} conflicts gcc47 gcc48 gcc49 clang33 clang34 clang35 {
 	depends_build-append    port:clang-3.2
 	configure.compiler      macports-clang-3.2
 }
 
-variant clang33 description {build with macport clang-3.3 toolchain} conflicts gcc47 gcc48 gcc49 clang32 clang34 {
+variant clang33 description {build with macport clang-3.3 toolchain} conflicts gcc47 gcc48 gcc49 clang32 clang34 clang35 {
 	depends_build-append    port:clang-3.3
 	configure.compiler      macports-clang-3.3
 }
 
-variant clang34 description {build with macport clang-3.4 toolchain} conflicts gcc47 gcc48 gcc49 clang32 clang33 {
+variant clang34 description {build with macport clang-3.4 toolchain} conflicts gcc47 gcc48 gcc49 clang32 clang33 clang35 {
 	depends_build-append    port:clang-3.4
 	configure.compiler      macports-clang-3.4
+}
+
+variant clang35 description {build with macport clang-3.5 toolchain} conflicts gcc47 gcc48 gcc49 clang32 clang33 clang34 {
+	depends_build-append    port:clang-3.5
+	configure.compiler      macports-clang-3.5
 }
 
 if {[variant_isset nonfree]} {
