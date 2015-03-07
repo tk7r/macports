@@ -8,7 +8,7 @@ PortGroup       compiler_blacklist_versions 1.0
 PortGroup       active_variants 1.1
 
 name            ffmpeg24
-conflicts       ffmpeg-devel ffmpeg ffmpeg22
+conflicts       ffmpeg-devel ffmpeg ffmpeg22 ffmpeg25
 epoch           1
 version         2.4.7
 revision        1

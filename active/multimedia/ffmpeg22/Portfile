@@ -7,7 +7,7 @@ PortGroup muniversal 1.0
 PortGroup compiler_blacklist_versions 1.0
 
 name            ffmpeg22
-conflicts       ffmpeg-devel ffmpeg ffmpeg24
+conflicts       ffmpeg-devel ffmpeg ffmpeg24 ffmpeg25
 epoch           1
 version         2.2.12
 revision        1
