@@ -1,0 +1,38 @@
+# $Id: Portfile 126520 2014-10-11 08:17:03Z petr@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+set _name           django-nose
+set _n              [string index ${_name} 0]
+
+name                py-${_name}
+version             1.4
+python.versions     26 27 34
+
+categories-append   devel
+platforms           darwin
+license             BSD
+maintainers         nomaintainer
+
+description         Django test runner that uses nose
+long_description    ${description}
+
+homepage            http://github.com/jbalogh/${_name}
+master_sites        http://pypi.python.org/packages/source/${_n}/${_name}
+distname            ${_name}-${version}
+
+checksums           md5     2713d95286ea49860458a312d2efe653 \
+                    rmd160  641a0b4a17c45a7c4f3b12d5e556d2f3899f9130 \
+                    sha256  26cef3c6f62df2eee955a25195de6f793881317c0f5fd1a1c6f9e22f351a9313
+
+if {${name} ne ${subport}} {
+    depends_lib     port:py${python.version}-django \
+                    port:py${python.version}-nose
+
+    livecheck.type  none
+} else {
+    livecheck.type  regex
+    livecheck.url   [lindex ${master_sites} 0]
+    livecheck.regex ">${_name}-(\\d+(\\.\\d+)+)\\${extract.suffix}<"
+}
