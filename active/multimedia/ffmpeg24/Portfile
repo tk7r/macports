@@ -16,8 +16,8 @@ license         LGPL-2.1+
 categories      multimedia
 maintainers     lausa.at:thomas.kotzian
 
-distname            ffmpeg-${version}
-worksrcdir          ffmpeg-${version}
+distname        ffmpeg-${version}
+worksrcdir      ffmpeg-${version}
 
 description     FFmpeg is a complete solution to play, record, convert and \
                 stream audio and video.
@@ -63,7 +63,7 @@ checksums       rmd160  80f18d1d3871422113a56845d6558a8fb61303c1 \
 
 depends_build   port:pkgconfig \
                 port:gmake \
-                port:texi2html
+                port:texinfo
 
 depends_lib     port:lame \
                 port:libiconv \
