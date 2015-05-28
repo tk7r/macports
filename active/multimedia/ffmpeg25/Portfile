@@ -10,7 +10,7 @@ PortGroup       active_variants 1.1
 name            ffmpeg25
 conflicts       ffmpeg-devel ffmpeg22 ffmpeg24 ffmpeg
 epoch           1
-version         2.5.5
+version         2.5.7
 revision        1
 license         LGPL-2.1+
 categories      multimedia
@@ -58,8 +58,8 @@ master_sites    http://www.ffmpeg.org/releases/
 
 use_bzip2       yes
 
-checksums       rmd160  580eb966f7856da01bfc5fc2bcf460802afaf1ec \
-                sha256  99ad0a6f11fd4dedde7d207df7c7bca07f8c8e9749318354b231cf2bbbda20f8
+checksums       rmd160  c55c3ba6bf847ac89576748920e70cfab8054f81 \
+                sha256  87e500373cdfaa0587e3ed3b9ab446b9f097f0c1875a6e028c428a77d0f9e449
 
 depends_build   port:pkgconfig \
                 port:gmake \
