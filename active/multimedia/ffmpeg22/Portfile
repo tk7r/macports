@@ -1,10 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
 # $Id: Portfile 112019 2013-10-09 19:30:17Z devans@macports.org $
 
-PortSystem 1.0
-PortGroup xcodeversion 1.0
-PortGroup muniversal 1.0
-PortGroup compiler_blacklist_versions 1.0
+PortSystem      1.0
+PortGroup       xcodeversion 1.0
+PortGroup       muniversal 1.0
+PortGroup       compiler_blacklist_versions 1.0
+PortGroup       active_variants 1.1
 
 name            ffmpeg22
 conflicts       ffmpeg-devel ffmpeg ffmpeg24 ffmpeg25
@@ -15,8 +16,8 @@ license         LGPL-2.1+
 categories      multimedia
 maintainers     lausa.at:thomas.kotzian
 
-distname            ffmpeg-${version}
-worksrcdir          ffmpeg-${version}
+distname        ffmpeg-${version}
+worksrcdir      ffmpeg-${version}
 
 description     FFmpeg is a complete solution to play, record, convert and \
                 stream audio and video.
@@ -62,7 +63,7 @@ checksums       rmd160  9c4e66167b284b770ef7ea372740ed0ecca8d680 \
 
 depends_build   port:pkgconfig \
                 port:gmake \
-                port:texi2html
+                port:texinfo
 
 depends_lib     port:lame \
                 port:libiconv \
@@ -140,6 +141,7 @@ configure.args \
 
 # disable asm on Tiger
 # libblueray doesn't build on Tiger so disable for now (#39442)
+
 platform darwin {
     if {${os.major} < 9} {
         depends_lib-delete    port:libbluray
@@ -221,9 +223,9 @@ variant libdc1394 description {Enable IIDC-1394 frame grabbing using libdc1394 (
 # https://trac.ffmpeg.org/ticket/1700
 
 variant librtmp description {Use librtmp (from rtmpdump) as rtmp[t][es]:// protocol handler} {
-    configure.args-append     --enable-librtmp
+    configure.args-append   --enable-librtmp
 
-    depends_lib-append        port:rtmpdump
+    depends_lib-append      port:rtmpdump
 }
 
 variant gpl2 description {Enable GPL code, license will be GPL-2+} {
@@ -243,7 +245,9 @@ variant gpl3 requires gpl2 description {Enable GPL code, license will be GPL-3+}
     configure.args-append   --enable-version3 \
                             --enable-libopencore-amrnb \
                             --enable-libopencore-amrwb
+
     depends_lib-append      port:opencore-amr
+
     license-delete          LGPL-2.1+
     license-append          GPL-3+
 }
