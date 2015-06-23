@@ -5,7 +5,7 @@ PortSystem          1.0
 
 name                cfengine36
 conflicts           cfengine cfengine3 cfengine35
-version             3.6.3
+version             3.6.5
 revision            1
 categories          sysutils
 platforms           darwin
@@ -20,9 +20,9 @@ homepage            http://cfengine.com/
 distname            cfengine-${version}
 worksrcdir          cfengine-${version}
 master_sites        https://s3.amazonaws.com/cfengine.package-repos/tarballs/
-checksums           md5     d517c0f40433de71429b7e771685dc38 \
-                    sha512  8d3f951b7ec6f2be9481c862a6b2f35006b39e29655d0070e601cdeed031ef8bf892d8e342b8c1422521f331ad5ca86c3313a324451a1a94d183322ac5f62863 \
-                    rmd160  0c08750f8ca831c1e1a221dd77cad11c85f62dfd
+checksums           md5     76754e9aa7498a614012e0c064b37cbe \
+                    sha512  c024fcf2c28ac30884f91964310619939b5e9ae371e8c51ef6602eeee6ca147c7d8522916ab287a179161ddde6979ffe0a97acdf6cde340a128ea9f3397eb263 \
+                    rmd160  323d047f8dffc37924d82e4dbcd4d75172b41ea6
 
 destroot.violate_mtree      yes
 
