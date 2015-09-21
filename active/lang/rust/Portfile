@@ -54,12 +54,12 @@ checksums               ${name}c-${version}-src${extract.suffix} \
 # stage0 is found from
 # https://github.com/rust-lang/rust/blob/${version}/src/snapshots.txt
 set stage0(distdir)     rust-stage0
-set stage0(date)        2015-05-24
-set stage0(rev)         ba0e1cd
+set stage0(date)        2015-07-26
+set stage0(rev)         a5c12f4
 set stage0(platform)    macos-${configure.build_arch}
 set stage0(hash)        [expr {${configure.build_arch} eq "i386" ?
-                                "9a273324a6b63a40f67a553029c0a9fb692ffd1f" :
-                                "e5b12cb7c179fc98fa905a3c84803645d946a6ae"}]
+                                "428944a7984c0988e77909d82ca2ef77d96a1fbd" :
+                                "b0515bb7d2892b9a58282fc865fee11a885406d6"}]
 
 set stage0_name         [join "rust stage0 ${stage0(date)}
                                            ${stage0(rev)}
@@ -70,11 +70,11 @@ distfiles-append        ${stage0_name}:snap
 
 switch ${configure.build_arch} {
     i386    {checksums-append   ${stage0_name} \
-                            rmd160  17b8833991e1de538296a50358cb33ce239c2545 \
-                            sha256  ac813d953082a8eb0a3361e0a0bd157cc4fac94c9a0ccabc6cfb7d5895b1cbf7}
+                            rmd160  9a02f587a7d972c8046f9debcf06e1c916fa058a \
+                            sha256  a3d1c1d58f999a84f889c29c7cfe8478c7f15aa2784c83dc4294b0d7f8a913de}
     default {checksums-append   ${stage0_name} \
-                            rmd160  0809c31f03be0b867dadcdee87b836d053a2e56f \
-                            sha256  0573607585c9ec8e75b384b07f2aed1c8d686593bc98482b14ae91c19bf2f2b1}
+                            rmd160  113dceff2902a580ab70246c65ba5f9320dff31c \
+                            sha256  58d73144d1f0f4ce2866ce8f30d646aa74cb5579ffe040a3deea8bdaaf042d1c}
 }
 
 # Only use compilers supported by upstream
