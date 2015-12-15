@@ -79,8 +79,9 @@ variant x11 description "Enable X11 support" {
     configure.args-append --with-x
 }
 
-startupitem.create  yes
-startupitem.executable "${prefix}/sbin/burp -c ${prefix}/etc/burp/burp-server.conf"
+startupitem.create       yes
+startupitem.executable   ${prefix}/sbin/burp -F -c ${prefix}/etc/burp/burp-server.conf
+startupitem.pidfile      clean ${prefix}/var/run/${name}.server.pid
 
 pre-deactivate {
     if {[file exists /Library/LaunchDaemons/org.macports.burp.plist]} {
