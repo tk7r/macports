@@ -5,7 +5,7 @@ PortGroup       python 1.0
 
 name            py-argh
 set real_name   argh
-version         0.24.1
+version         0.26.1
 maintainers     nomaintainer
 platforms       darwin
 description     simple argparse wrapper
@@ -19,9 +19,9 @@ homepage            https://bitbucket.org/neithere/${real_name}/
 master_sites        https://pypi.python.org/packages/source/a/${real_name}
 distname            ${real_name}-${version}
 
-checksums           md5     67ef29c2a32b206228933d94cdfeda96 \
-                    rmd160  272d128abc9ec5e331c03a6086e307210b5e5ddc \
-                    sha256  4980eb11339c9954885b8e44a1e39a4a1c114b738a7d8942c08494f4902f82a9
+checksums           md5     5a97ce2ae74bbe3b63194906213f1184 \
+                    rmd160  f7bc66643989d50b5c1a240710a75b478fb1f0af \
+                    sha256  06a7442cb9130fb8806fe336000fcf20edf1f2f8ad205e7b62cec118505510db
 
 python.versions     27 33 34 35
 
