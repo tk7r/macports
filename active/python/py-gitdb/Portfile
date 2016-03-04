@@ -1,0 +1,28 @@
+# $Id: Portfile 142698 2015-11-20 16:55:09Z landonf@macports.org $
+
+PortSystem        1.0
+PortGroup         python 1.0
+
+name              py-gitdb
+version           0.6.4
+maintainers       nomaintainer
+platforms         darwin
+license           BSD
+
+description       GitDB is a pure-Python git object database
+long_description  ${description}
+
+homepage          http://packages.python.org/gitdb/
+master_sites      http://pypi.python.org/packages/source/g/gitdb/
+distname          gitdb-${version}
+
+python.versions   26 27 33 34 35
+python.default_version 27
+
+if {${name} ne ${subport}} {
+depends_run       port:py${python.version}-smmap
+}
+
+checksums         md5     44e4366b8bdfd306b075c3a52c96ae1a \
+                  sha1    21cbba28199802e73e0c4a83b7c02369bbf8c7d7 \
+                  rmd160  68c014ea3cce0f9b9a58c8f39b255ea817af0d70
