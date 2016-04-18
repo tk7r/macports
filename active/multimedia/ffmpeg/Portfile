@@ -337,63 +337,93 @@ variant nonfree description {enable nonfree code, libraries and binaries will no
     license                 Restrictive
 }
 
-variant gcc46 description {build with the macports gcc46 toolchain} conflicts gcc47 gcc48 gcc49 gcc5 gcc6 clang35 clang36 clang37 {
+variant gcc43 description {build with the macports gcc43 toolchain} conflicts gcc44 gcc45 gcc46 gcc47 gcc48 gcc49 gcc5 gcc6 clang34 clang35 clang36 clang37 clang38 clang39 {
+	depends_build-append    port:gcc43
+	configure.compiler      macports-gcc-4.3
+	configure.args-append   --cc=${configure.cc}
+}
+
+variant gcc44 description {build with the macports gcc44 toolchain} conflicts gcc43 gcc45 gcc46 gcc47 gcc48 gcc49 gcc5 gcc6 clang34 clang35 clang36 clang37 clang38 clang39 {
+	depends_build-append    port:gcc44
+	configure.compiler      macports-gcc-4.4
+	configure.args-append   --cc=${configure.cc}
+}
+
+variant gcc45 description {build with the macports gcc45 toolchain} conflicts gcc43 gcc44 gcc46 gcc47 gcc48 gcc49 gcc5 gcc6 clang34 clang35 clang36 clang37 clang38 clang39 {
+	depends_build-append    port:gcc45
+	configure.compiler      macports-gcc-4.5
+	configure.args-append   --cc=${configure.cc}
+}
+
+variant gcc46 description {build with the macports gcc46 toolchain} conflicts gcc43 gcc44 gcc45 gcc47 gcc48 gcc49 gcc5 gcc6 clang34 clang35 clang36 clang37 clang38 clang39 {
 	depends_build-append    port:gcc46
 	configure.compiler      macports-gcc-4.6
 	configure.args-append   --cc=${configure.cc}
 }
 
-variant gcc47 description {build with the macports gcc47 toolchain} conflicts gcc46 gcc48 gcc49 gcc5 gcc6 clang35 clang36 clang37 clang38 {
+variant gcc47 description {build with the macports gcc47 toolchain} conflicts gcc43 gcc44 gcc45 gcc46 gcc48 gcc49 gcc5 gcc6 clang34 clang35 clang36 clang37 clang38 clang39 {
 	depends_build-append    port:gcc47
 	configure.compiler      macports-gcc-4.7
 	configure.args-append   --cc=${configure.cc}
 }
 
-variant gcc48 description {build with the macports gcc48 toolchain} conflicts gcc46 gcc47 gcc49 gcc5 gcc6 clang35 clang36 clang37 clang38 {
+variant gcc48 description {build with the macports gcc48 toolchain} conflicts gcc43 gcc44 gcc45 gcc46 gcc47 gcc49 gcc5 gcc6 clang34 clang35 clang36 clang37 clang38 clang39 {
 	depends_build-append    port:gcc48
 	configure.compiler      macports-gcc-4.8
 	configure.args-append   --cc=${configure.cc}
 }
 
-variant gcc49 description {build with the macports gcc49 toolchain} conflicts gcc46 gcc47 gcc48 gcc5 gcc6 clang35 clang36 clang37 clang38 {
+variant gcc49 description {build with the macports gcc49 toolchain} conflicts gcc43 gcc44 gcc45 gcc46 gcc47 gcc48 gcc5 gcc6 clang34 clang35 clang36 clang37 clang38 clang39 {
 	depends_build-append    port:gcc49
 	configure.compiler      macports-gcc-4.9
 	configure.args-append   --cc=${configure.cc}
 }
 
-variant gcc5 description {build with the macports gcc5 toolchain} conflicts gcc46 gcc47 gcc48 gcc49 gcc6 clang35 clang36 clang37 clang38 {
+variant gcc5 description {build with the macports gcc5 toolchain} conflicts gcc43 gcc44 gcc45 gcc46 gcc47 gcc48 gcc49 gcc6 clang34 clang35 clang36 clang37 clang38 clang39 {
 	depends_build-append    port:gcc5
 	configure.compiler      macports-gcc-5
 	configure.args-append   --cc=${configure.cc}
 }
 
-variant gcc6 description {build with the macports gcc6 toolchain} conflicts gcc46 gcc47 gcc48 gcc49 gcc5 clang35 clang36 clang37 clang38 {
+variant gcc6 description {build with the macports gcc6 toolchain} conflicts gcc43 gcc44 gcc45 gcc46 gcc47 gcc48 gcc49 gcc5 clang34 clang35 clang36 clang37 clang38 clang39 {
 	depends_build-append    port:gcc6
 	configure.compiler      macports-gcc-6
 	configure.args-append   --cc=${configure.cc}
 }
 
-variant clang35 description {build with macport clang-3.5 toolchain} conflicts gcc46 gcc47 gcc48 gcc49 gcc5 gcc6 clang36 clang37 clang38 {
+variant clang34 description {build with macport clang-3.4 toolchain} conflicts gcc43 gcc44 gcc45 gcc46 gcc47 gcc48 gcc49 gcc5 gcc6 clang35 clang36 clang37 clang38 clang39 {
+	depends_build-append    port:clang-3.4
+	configure.compiler      macports-clang-3.4
+	configure.args-append   --cc=${configure.cc}
+}
+
+variant clang35 description {build with macport clang-3.5 toolchain} conflicts gcc43 gcc44 gcc45 gcc46 gcc47 gcc48 gcc49 gcc5 gcc6 clang34 clang36 clang37 clang38 clang39 {
 	depends_build-append    port:clang-3.5
 	configure.compiler      macports-clang-3.5
 	configure.args-append   --cc=${configure.cc}
 }
 
-variant clang36 description {build with macport clang-3.6 toolchain} conflicts gcc46 gcc47 gcc48 gcc49 gcc5 gcc6 clang35 clang37 clang38 {
+variant clang36 description {build with macport clang-3.6 toolchain} conflicts gcc43 gcc44 gcc45 gcc46 gcc47 gcc48 gcc49 gcc5 gcc6 clang34 clang35 clang37 clang38 clang39 {
 	depends_build-append    port:clang-3.6
 	configure.compiler      macports-clang-3.6
 	configure.args-append   --cc=${configure.cc}
 }
 
-variant clang37 description {build with macport clang-3.7 toolchain} conflicts gcc46 gcc47 gcc48 gcc49 gcc5 gcc6 clang35 clang36 clang38 {
+variant clang37 description {build with macport clang-3.7 toolchain} conflicts gcc43 gcc44 gcc45 gcc46 gcc47 gcc48 gcc49 gcc5 gcc6 clang34 clang35 clang36 clang38 clang39 {
 	depends_build-append    port:clang-3.7
 	configure.compiler      macports-clang-3.7
 	configure.args-append   --cc=${configure.cc}
 }
 
-variant clang38 description {build with macport clang-3.8 toolchain} conflicts gcc46 gcc47 gcc48 gcc49 gcc5 gcc6 clang35 clang36 clang37 {
+variant clang38 description {build with macport clang-3.8 toolchain} conflicts gcc43 gcc44 gcc45 gcc46 gcc47 gcc48 gcc49 gcc5 gcc6 clang34 clang35 clang36 clang37 clang39 {
 	depends_build-append    port:clang-3.8
 	configure.compiler      macports-clang-3.8
+	configure.args-append   --cc=${configure.cc}
+}
+
+variant clang39 description {build with macport clang-3.9 toolchain} conflicts gcc43 gcc44 gcc45 gcc46 gcc47 gcc48 gcc49 gcc5 gcc6 clang34 clang35 clang36 clang37 clang38 {
+	depends_build-append    port:clang-3.9
+	configure.compiler      macports-clang-3.9
 	configure.args-append   --cc=${configure.cc}
 }
 
