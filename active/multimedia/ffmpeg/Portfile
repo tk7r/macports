@@ -10,7 +10,7 @@ PortGroup           active_variants 1.1
 name                ffmpeg
 conflicts           ffmpeg-devel
 epoch               1
-version             3.0.2
+version             3.1.1
 revision            1
 license             LGPL-2.1+
 categories          multimedia
@@ -58,8 +58,8 @@ master_sites        http://www.ffmpeg.org/releases/
 
 use_bzip2           yes
 
-checksums           rmd160  7255df119a4efef1b0da58e6e148028edeeed7f2 \
-                    sha256  30e3c77c2f4c358ed087869455a7496cbd7753a5e1b98d20ba49c1004009fd36
+checksums           rmd160  1b2b8e480d7140e43ff6f61ac4b05f2234b5681a \
+                    sha256  a5bca50a90a37b983eaa17c483a387189175f37ca678ae7e51d43e7610b4b3b4
 
 depends_build       port:pkgconfig \
                     port:gmake \
