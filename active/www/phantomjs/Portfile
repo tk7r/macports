@@ -1,0 +1,54 @@
+# -*- coding:utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 146517 2016-03-10 17:49:28Z raimue@macports.org $
+
+PortSystem          1.0
+
+name                phantomjs
+version             2.1.1
+revision            1
+categories          www
+license             BSD
+platforms           darwin
+maintainers         stromnov openmaintainer
+
+homepage            http://www.phantomjs.org/
+
+description         PhantomJS is a minimalistic headless WebKit.
+
+long_description    PhantomJS is a headless WebKit scriptable with a \
+                    JavaScript API. It has fast and native support for \
+                    various web standards: DOM handling, CSS selector, \
+                    JSON, Canvas, and SVG.
+
+fetch.type          git
+git.url             https://github.com/ariya/phantomjs.git
+git.branch          2.1
+
+post-fetch {
+    system -W ${worksrcpath} "git submodule update --init"
+}
+
+checksums           rmd160  939bbfa143f0140c74bf8f04fb905357d61e95d9 \
+                    sha256  c58b6e8e8dc96683262cfb287dc0c854f619eacf58fe6ae46457439786c5fc1f
+
+depends_lib         port:openssl
+
+patchfiles          patch-tools_preconfig.sh.diff
+
+use_configure       no
+
+build.cmd           python build.py
+build.target
+build.args          --confirm \
+                    --jobs ${build.jobs}
+
+destroot    {
+    set docdir ${prefix}/share/doc/${name}
+    xinstall -d ${destroot}${docdir}
+
+    xinstall -m 755 ${worksrcpath}/bin/${name} ${destroot}${prefix}/bin/${name}
+    xinstall -W ${worksrcpath} ChangeLog README.md ${destroot}${docdir}
+    move ${worksrcpath}/examples ${destroot}${docdir}/examples
+}
+
+livecheck.regex     {phantomjs-(\d+(?:\.\d+)*)-source\.[tz]}
