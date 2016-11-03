@@ -3,9 +3,9 @@
 
 PortSystem          1.0
 
-name                cfengine36
-conflicts           cfengine cfengine3 cfengine35
-version             3.6.5
+name                cfengine37
+conflicts           cfengine cfengine3 cfengine39
+version             3.7.4
 revision            1
 categories          sysutils
 platforms           darwin
@@ -19,10 +19,9 @@ long_description    Configuration Management Software for Agile System Administr
 homepage            http://cfengine.com/
 distname            cfengine-${version}
 worksrcdir          cfengine-${version}
-master_sites        https://s3.amazonaws.com/cfengine.package-repos/tarballs/
-checksums           md5     76754e9aa7498a614012e0c064b37cbe \
-                    sha512  c024fcf2c28ac30884f91964310619939b5e9ae371e8c51ef6602eeee6ca147c7d8522916ab287a179161ddde6979ffe0a97acdf6cde340a128ea9f3397eb263 \
-                    rmd160  323d047f8dffc37924d82e4dbcd4d75172b41ea6
+master_sites        https://cfengine-package-repos.s3.amazonaws.com/tarballs/
+checksums           sha256  8f980004e901318ca9ba2eb5ab4ca25c3561116936bba169b90643ef0b6940df \
+                    rmd160  2f40e751e4a788c384a4f273ec7d393e9f292a7d
 
 destroot.violate_mtree      yes
 
@@ -44,5 +43,5 @@ livecheck.url       ${homepage}source-code
 livecheck.regex     "cfengine-(\\d+(?:\\.\\d+)*).tar.gz"
 
 startupitem.create      yes
-startupitem.name        cfengine36
+startupitem.name        cfengine37
 startupitem.executable  /var/cfengine/bin/cf-execd -F

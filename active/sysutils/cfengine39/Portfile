@@ -1,0 +1,47 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 103062 2013-02-13 00:42:13Z larryv@macports.org $
+
+PortSystem          1.0
+
+name                cfengine39
+conflicts           cfengine cfengine3 cfengine37
+version             3.9.1
+revision            1
+categories          sysutils
+platforms           darwin
+license             GPL-3
+maintainers         lausa.at:thomas.kotzian
+description         network configuration-management tool
+long_description    Configuration Management Software for Agile System Administrators. \
+                    Leading open source configuration management software ensuring the \
+                    availability, security and compliance of mission critical \
+                    applications and services.
+homepage            http://cfengine.com/
+distname            cfengine-${version}
+worksrcdir          cfengine-${version}
+master_sites        https://cfengine-package-repos.s3.amazonaws.com/tarballs/
+checksums           sha256  19bf900741efe3da4266591985dc1103243cb751888047694fce6f407ef2d225 \
+                    rmd160  82e72172821878b4fc5a7220f0dc415f0a1337c9
+
+destroot.violate_mtree      yes
+
+depends_lib         port:tokyocabinet \
+                    port:pcre \
+                    port:libxml2
+
+configure.args      --disable-dependency-tracking \
+                    --prefix=/var/cfengine \
+                    --with-workdir=/var/cfengine \
+                    --with-tokyocabinet=${prefix} \
+                    --with-openssl=${prefix} \
+                    --with-pcre=${prefix} \
+                    --without-mysql \
+                    --without-postgresql
+
+livecheck.type      regex
+livecheck.url       ${homepage}source-code
+livecheck.regex     "cfengine-(\\d+(?:\\.\\d+)*).tar.gz"
+
+startupitem.create      yes
+startupitem.name        cfengine39
+startupitem.executable  /var/cfengine/bin/cf-execd -F
