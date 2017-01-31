@@ -5,7 +5,7 @@ PortSystem          1.0
 
 name                mariadb-10.1
 set name_mysql      ${name}
-version             10.1.19
+version             10.1.21
 set version_branch  [join [lrange [split ${version} .] 0 1] .]
 # Please set revision_client and revision_server to 0 if you bump version.
 set revision_client 1
@@ -46,8 +46,8 @@ if {$subport eq $name} {
     patchfiles          patch-cmake-install_layout.cmake.diff \
                         patch-CMakeLists.txt.diff
 
-    checksums           rmd160  22b96c8a6cd2dc1bb3ae0a7c57f30808952e1b7d \
-                        sha256  5b9373f314e2d1727422fb3795bcf50c1c59005129b35b6cadafae5663251a81
+    checksums           rmd160  622f172376926e7b9ba403048aa0578187a5c658 \
+                        sha256  5a816355781ea22a6c65a436d8162f19bd292ec90e2b7d9499c031ae4a659490
 
     depends_lib-append  port:zlib port:tcp_wrappers port:ncurses
     depends_run-append  port:mysql_select
