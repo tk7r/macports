@@ -9,7 +9,7 @@ PortGroup           active_variants 1.1
 name                ffmpeg
 conflicts           ffmpeg-devel
 epoch               1
-version             3.2.4
+version             3.3.2
 revision            1
 license             LGPL-2.1+
 categories          multimedia
@@ -57,8 +57,8 @@ master_sites        http://www.ffmpeg.org/releases/
 
 use_xz              yes
 
-checksums           rmd160  5d000df63e8de5ff72430273ad7cdc2de0e4890f \
-                    sha256  6e38ff14f080c98b58cf5967573501b8cb586e3a173b591f3807d8f0660daf7a
+checksums           rmd160  fb2c30991c8c8ea3fb1b263fc48f0d95faa29ec4 \
+                    sha256  1998de1ab32616cbf2ff86efc3f1f26e76805ec5dc51e24c041c79edd8262785
 
 # root directory of extracted tarball is owned by root and has permissions 700
 # set to 755 to facilitate maintenance
@@ -98,8 +98,7 @@ depends_lib         port:lame \
                     port:xz \
                     port:zlib
 
-patchfiles          patch-libavcodec-audiotoolboxenc.c.diff \
-                    patch-configure-no-static-libopenjpeg.diff
+patchfiles          patch-libavcodec-audiotoolboxenc.c.diff
 
 post-build {
 	foreach bin { tools/qt-faststart tools/trasher } {
@@ -313,11 +312,10 @@ variant librtmp description {Use librtmp (from rtmpdump) as rtmp[t][es]:// proto
 }
 
 # x265 currently does not support OS X < 10.6 (#48336, #48338)
-# x265 cmake issues cause universal build to fail (#48331)
-# only enable libx265 support for non-universal builds on 10.6 or greater
+# only enable libx265 support on 10.6 or greater
 
 platform darwin {
-    if {${os.major} > 9 && [variant_isset gpl2] && ![variant_isset universal]} {
+    if {${os.major} > 9 && [variant_isset gpl2]} {
         configure.args-append   --enable-libx265
         depends_lib-append      port:x265
     }
