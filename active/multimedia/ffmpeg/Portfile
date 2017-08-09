@@ -9,7 +9,7 @@ PortGroup           active_variants 1.1
 name                ffmpeg
 conflicts           ffmpeg-devel
 epoch               1
-version             3.3.2
+version             3.3.3
 revision            1
 license             LGPL-2.1+
 categories          multimedia
@@ -49,7 +49,7 @@ long_description    FFmpeg is a complete solution to record, convert and \
                     libavformat is a library containing parsers and \
                     generators for all common audio/video formats. \
                     \
-                    Original port by devans jeremyhu openmaintainer
+                    Original port by {devans @dbevans} {jeremyhu @jeremyhu} openmaintainer
 
 platforms           darwin
 homepage            http://www.ffmpeg.org/
@@ -57,8 +57,8 @@ master_sites        http://www.ffmpeg.org/releases/
 
 use_xz              yes
 
-checksums           rmd160  fb2c30991c8c8ea3fb1b263fc48f0d95faa29ec4 \
-                    sha256  1998de1ab32616cbf2ff86efc3f1f26e76805ec5dc51e24c041c79edd8262785
+checksums           rmd160  8aff6c235b3e384c6592c59a321c7676a045266a \
+                    sha256  d2a9002cdc6b533b59728827186c044ad02ba64841f1b7cd6c21779875453a1e
 
 # root directory of extracted tarball is owned by root and has permissions 700
 # set to 755 to facilitate maintenance
@@ -98,7 +98,8 @@ depends_lib         port:lame \
                     port:xz \
                     port:zlib
 
-patchfiles          patch-libavcodec-audiotoolboxenc.c.diff
+patchfiles          patch-libavcodec-audiotoolboxenc.c.diff \
+                    patch-configure-no-static-libopenjpeg.diff
 
 post-build {
 	foreach bin { tools/qt-faststart tools/trasher } {
@@ -362,69 +363,75 @@ variant nonfree description {enable nonfree code, libraries and binaries will no
     license                 Restrictive
 }
 
-variant gcc47 description {build with the macports gcc47 toolchain} conflicts gcc48 gcc49 gcc5 gcc6 gcc7 clang36 clang37 clang38 clang39 clang40 {
+variant gcc47 description {build with the macports gcc47 toolchain} conflicts gcc48 gcc49 gcc5 gcc6 gcc7 clang36 clang37 clang38 clang39 clang40 clang50 {
 	depends_build-append    port:gcc47
 	configure.compiler      macports-gcc-4.7
 	configure.args-append   --cc=${configure.cc}
 }
 
-variant gcc48 description {build with the macports gcc48 toolchain} conflicts gcc47 gcc49 gcc5 gcc6 gcc7 clang36 clang37 clang38 clang39 clang40 {
+variant gcc48 description {build with the macports gcc48 toolchain} conflicts gcc47 gcc49 gcc5 gcc6 gcc7 clang36 clang37 clang38 clang39 clang40 clang50 {
 	depends_build-append    port:gcc48
 	configure.compiler      macports-gcc-4.8
 	configure.args-append   --cc=${configure.cc}
 }
 
-variant gcc49 description {build with the macports gcc49 toolchain} conflicts gcc47 gcc48 gcc5 gcc6 gcc7 clang36 clang37 clang38 clang39 clang40 {
+variant gcc49 description {build with the macports gcc49 toolchain} conflicts gcc47 gcc48 gcc5 gcc6 gcc7 clang36 clang37 clang38 clang39 clang40 clang50 {
 	depends_build-append    port:gcc49
 	configure.compiler      macports-gcc-4.9
 	configure.args-append   --cc=${configure.cc}
 }
 
-variant gcc5 description {build with the macports gcc5 toolchain} conflicts gcc47 gcc48 gcc49 gcc6 gcc7 clang36 clang37 clang38 clang39 clang40 {
+variant gcc5 description {build with the macports gcc5 toolchain} conflicts gcc47 gcc48 gcc49 gcc6 gcc7 clang36 clang37 clang38 clang39 clang40 clang50 {
 	depends_build-append    port:gcc5
 	configure.compiler      macports-gcc-5
 	configure.args-append   --cc=${configure.cc}
 }
 
-variant gcc6 description {build with the macports gcc6 toolchain} conflicts gcc47 gcc48 gcc49 gcc5 gcc7 clang36 clang37 clang38 clang39 clang40 {
+variant gcc6 description {build with the macports gcc6 toolchain} conflicts gcc47 gcc48 gcc49 gcc5 gcc7 clang36 clang37 clang38 clang39 clang40 clang50 {
 	depends_build-append    port:gcc6
 	configure.compiler      macports-gcc-6
 	configure.args-append   --cc=${configure.cc}
 }
 
-variant gcc7 description {build with the macports gcc6 toolchain} conflicts gcc47 gcc48 gcc49 gcc5 gcc6 clang36 clang37 clang38 clang39 clang40 {
+variant gcc7 description {build with the macports gcc6 toolchain} conflicts gcc47 gcc48 gcc49 gcc5 gcc6 clang36 clang37 clang38 clang39 clang40 clang50 {
 	depends_build-append    port:gcc7
 	configure.compiler      macports-gcc-7
 	configure.args-append   --cc=${configure.cc}
 }
 
-variant clang36 description {build with macport clang-3.6 toolchain} conflicts gcc47 gcc48 gcc49 gcc5 gcc6 gcc7 clang37 clang38 clang39 clang40 {
+variant clang36 description {build with macport clang-3.6 toolchain} conflicts gcc47 gcc48 gcc49 gcc5 gcc6 gcc7 clang37 clang38 clang39 clang40 clang50 {
 	depends_build-append    port:clang-3.6
 	configure.compiler      macports-clang-3.6
 	configure.args-append   --cc=${configure.cc}
 }
 
-variant clang37 description {build with macport clang-3.7 toolchain} conflicts gcc47 gcc48 gcc49 gcc5 gcc6 gcc7 clang36 clang38 clang39 clang40 {
+variant clang37 description {build with macport clang-3.7 toolchain} conflicts gcc47 gcc48 gcc49 gcc5 gcc6 gcc7 clang36 clang38 clang39 clang40 clang50 {
 	depends_build-append    port:clang-3.7
 	configure.compiler      macports-clang-3.7
 	configure.args-append   --cc=${configure.cc}
 }
 
-variant clang38 description {build with macport clang-3.8 toolchain} conflicts gcc47 gcc48 gcc49 gcc5 gcc6 gcc7 clang36 clang37 clang39 clang40 {
+variant clang38 description {build with macport clang-3.8 toolchain} conflicts gcc47 gcc48 gcc49 gcc5 gcc6 gcc7 clang36 clang37 clang39 clang40 clang50 {
 	depends_build-append    port:clang-3.8
 	configure.compiler      macports-clang-3.8
 	configure.args-append   --cc=${configure.cc}
 }
 
-variant clang39 description {build with macport clang-3.9 toolchain} conflicts gcc47 gcc48 gcc49 gcc5 gcc6 gcc7 clang36 clang37 clang38 clang40 {
+variant clang39 description {build with macport clang-3.9 toolchain} conflicts gcc47 gcc48 gcc49 gcc5 gcc6 gcc7 clang36 clang37 clang38 clang40 clang50 {
 	depends_build-append    port:clang-3.9
 	configure.compiler      macports-clang-3.9
 	configure.args-append   --cc=${configure.cc}
 }
 
-variant clang40 description {build with macport clang-4.0 toolchain} conflicts gcc47 gcc48 gcc49 gcc5 gcc6 gcc7 clang36 clang37 clang38 clang39 {
+variant clang40 description {build with macport clang-4.0 toolchain} conflicts gcc47 gcc48 gcc49 gcc5 gcc6 gcc7 clang36 clang37 clang38 clang39 clang50 {
 	depends_build-append    port:clang-4.0
 	configure.compiler      macports-clang-4.0
+	configure.args-append   --cc=${configure.cc}
+}
+
+variant clang50 description {build with macport clang-5.0 toolchain} conflicts gcc47 gcc48 gcc49 gcc5 gcc6 gcc7 clang36 clang37 clang38 clang39 clang40 {
+	depends_build-append    port:clang-5.0
+	configure.compiler      macports-clang-5.0
 	configure.args-append   --cc=${configure.cc}
 }
 
