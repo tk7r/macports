@@ -363,73 +363,43 @@ variant nonfree description {enable nonfree code, libraries and binaries will no
     license                 Restrictive
 }
 
-variant gcc47 description {build with the macports gcc47 toolchain} conflicts gcc48 gcc49 gcc5 gcc6 gcc7 clang36 clang37 clang38 clang39 clang40 clang50 {
-	depends_build-append    port:gcc47
-	configure.compiler      macports-gcc-4.7
-	configure.args-append   --cc=${configure.cc}
-}
-
-variant gcc48 description {build with the macports gcc48 toolchain} conflicts gcc47 gcc49 gcc5 gcc6 gcc7 clang36 clang37 clang38 clang39 clang40 clang50 {
-	depends_build-append    port:gcc48
-	configure.compiler      macports-gcc-4.8
-	configure.args-append   --cc=${configure.cc}
-}
-
-variant gcc49 description {build with the macports gcc49 toolchain} conflicts gcc47 gcc48 gcc5 gcc6 gcc7 clang36 clang37 clang38 clang39 clang40 clang50 {
-	depends_build-append    port:gcc49
-	configure.compiler      macports-gcc-4.9
-	configure.args-append   --cc=${configure.cc}
-}
-
-variant gcc5 description {build with the macports gcc5 toolchain} conflicts gcc47 gcc48 gcc49 gcc6 gcc7 clang36 clang37 clang38 clang39 clang40 clang50 {
+variant gcc5 description {build with the macports gcc5 toolchain} conflicts gcc6 clang38 clang39 clang40 clang50 {
 	depends_build-append    port:gcc5
 	configure.compiler      macports-gcc-5
 	configure.args-append   --cc=${configure.cc}
+	configure.args-replace  --enable-audiotoolbox --disable-audiotoolbox
+	configure.args-replace  --enable-videotoolbox --disable-videotoolbox
+	configure.args-replace  --enable-vda --disable-vda
 }
 
-variant gcc6 description {build with the macports gcc6 toolchain} conflicts gcc47 gcc48 gcc49 gcc5 gcc7 clang36 clang37 clang38 clang39 clang40 clang50 {
+variant gcc6 description {build with the macports gcc6 toolchain} conflicts gcc5 clang38 clang39 clang40 clang50 {
 	depends_build-append    port:gcc6
 	configure.compiler      macports-gcc-6
 	configure.args-append   --cc=${configure.cc}
+	configure.args-replace  --enable-audiotoolbox --disable-audiotoolbox
+	configure.args-replace  --enable-videotoolbox --disable-videotoolbox
+	configure.args-replace  --enable-vda --disable-vda
 }
 
-variant gcc7 description {build with the macports gcc6 toolchain} conflicts gcc47 gcc48 gcc49 gcc5 gcc6 clang36 clang37 clang38 clang39 clang40 clang50 {
-	depends_build-append    port:gcc7
-	configure.compiler      macports-gcc-7
-	configure.args-append   --cc=${configure.cc}
-}
-
-variant clang36 description {build with macport clang-3.6 toolchain} conflicts gcc47 gcc48 gcc49 gcc5 gcc6 gcc7 clang37 clang38 clang39 clang40 clang50 {
-	depends_build-append    port:clang-3.6
-	configure.compiler      macports-clang-3.6
-	configure.args-append   --cc=${configure.cc}
-}
-
-variant clang37 description {build with macport clang-3.7 toolchain} conflicts gcc47 gcc48 gcc49 gcc5 gcc6 gcc7 clang36 clang38 clang39 clang40 clang50 {
-	depends_build-append    port:clang-3.7
-	configure.compiler      macports-clang-3.7
-	configure.args-append   --cc=${configure.cc}
-}
-
-variant clang38 description {build with macport clang-3.8 toolchain} conflicts gcc47 gcc48 gcc49 gcc5 gcc6 gcc7 clang36 clang37 clang39 clang40 clang50 {
+variant clang38 description {build with macport clang-3.8 toolchain} conflicts gcc5 gcc6 clang39 clang40 clang50 {
 	depends_build-append    port:clang-3.8
 	configure.compiler      macports-clang-3.8
 	configure.args-append   --cc=${configure.cc}
 }
 
-variant clang39 description {build with macport clang-3.9 toolchain} conflicts gcc47 gcc48 gcc49 gcc5 gcc6 gcc7 clang36 clang37 clang38 clang40 clang50 {
+variant clang39 description {build with macport clang-3.9 toolchain} conflicts gcc5 gcc6 clang38 clang40 clang50 {
 	depends_build-append    port:clang-3.9
 	configure.compiler      macports-clang-3.9
 	configure.args-append   --cc=${configure.cc}
 }
 
-variant clang40 description {build with macport clang-4.0 toolchain} conflicts gcc47 gcc48 gcc49 gcc5 gcc6 gcc7 clang36 clang37 clang38 clang39 clang50 {
+variant clang40 description {build with macport clang-4.0 toolchain} conflicts gcc5 gcc6 clang38 clang39 clang50 {
 	depends_build-append    port:clang-4.0
 	configure.compiler      macports-clang-4.0
 	configure.args-append   --cc=${configure.cc}
 }
 
-variant clang50 description {build with macport clang-5.0 toolchain} conflicts gcc47 gcc48 gcc49 gcc5 gcc6 gcc7 clang36 clang37 clang38 clang39 clang40 {
+variant clang50 description {build with macport clang-5.0 toolchain} conflicts gcc5 gcc6 clang38 clang39 clang40 {
 	depends_build-append    port:clang-5.0
 	configure.compiler      macports-clang-5.0
 	configure.args-append   --cc=${configure.cc}
