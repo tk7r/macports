@@ -9,8 +9,8 @@ PortGroup           active_variants 1.1
 name                ffmpeg
 conflicts           ffmpeg-devel
 epoch               1
-version             3.4
-revision            1
+version             3.4.1
+revision            3
 license             LGPL-2.1+
 categories          multimedia
 maintainers         lausa.at:thomas.kotzian
@@ -57,8 +57,8 @@ master_sites        http://www.ffmpeg.org/releases/
 
 use_xz              yes
 
-checksums           rmd160  e554cb80356779de57b24c97d0ccb485a0b144eb \
-                    sha256  aeee06e4d8b18d852c61ebbfe5e1bb7014b1e118e8728c1c2115f91e51bffbef
+checksums           rmd160  0cad66d5bee31586fa1885794140ccad1a348b0b \
+                    sha256  5a77278a63741efa74e26bf197b9bb09ac6381b9757391b922407210f0f991c0
 
 # root directory of extracted tarball is owned by root and has permissions 700
 # set to 755 to facilitate maintenance
@@ -120,6 +120,14 @@ if {[lsearch [get_canonical_archs] i386] != -1} {
     compiler.blacklist-append {clang < 422.1.7}
 }
 
+platform darwin powerpc {
+    # https://trac.macports.org/ticket/55124
+    # requires newer compiler than gcc4.2 to build
+    compiler.blacklist
+    compiler.whitelist    macports-gcc-6
+    universal_variant     no
+}
+
 # The old ffmpeg port was GPL-2+ as base and had a no_gpl variant, so this keeps us consistent
 # Also, -gpl2 causes other ports to fail to build due to the missing libpostproc (#35473)
 default_variants-append +gpl2
@@ -146,10 +154,13 @@ configure.args      --enable-swscale \
                     --enable-fontconfig \
                     --enable-libfreetype \
                     --enable-libfribidi \
+                    --disable-libopencore-amrnb \
+                    --disable-libopencore-amrwb \
                     --disable-libxcb \
                     --disable-libxcb-shm \
                     --disable-libxcb-xfixes \
                     --disable-indev=jack \
+                    --disable-opencl \
                     --disable-outdev=xv \
                     --disable-vda \
                     --disable-audiotoolbox \
@@ -164,16 +175,14 @@ platform darwin {
     # libblueray doesn't build on Tiger so disable for now (#39442)
     if {${os.major} < 9} {
         depends_lib-delete    port:libbluray
-        configure.args-delete --enable-libbluray
-        configure.args-append --disable-libbluray
+        configure.args-replace --enable-libbluray --disable-libbluray
         configure.args-append --disable-asm
     }
 
     # as of 1.6.0 libvpx only supports darwin 10 or later
     if {${os.major} < 10} {
         depends_build-delete port:libvpx
-        configure.args-delete --enable-libvpx
-        configure.args-append --disable-libvpx
+        configure.args-replace --enable-libvpx --disable-libvpx
     }
 
     # filters coreimage and coreimagesrc don't build on 10.6
@@ -195,7 +204,7 @@ platform darwin {
     #   configure.args-append --enable-vda
     }
 
-    # AudiotoolBox support requires CoreMedia Framework available on 10.7+
+    # AudioToolbox support requires CoreMedia Framework available on 10.7+
     # libsdl2 requires minimum Xcode 10.7 SDK to build successfully
     if {${os.major} > 10} {
         configure.args-replace --disable-audiotoolbox --enable-audiotoolbox
@@ -203,11 +212,15 @@ platform darwin {
         depends_lib-append     port:libsdl2
     }
 
-    # VideotoolBox, a new hardware acceleration framework, is supported on 10.8+ and "here to stay".
+    # VideoToolbox, a new hardware acceleration framework, is supported on 10.8+ and "here to stay".
     # It provides support for H264, H263, MPEG1, MPEG2 and MPEG4.
     if {${os.major} > 11} {
-        configure.args-delete --disable-videotoolbox
-        configure.args-append --enable-videotoolbox
+        configure.args-replace --disable-videotoolbox --enable-videotoolbox
+    }
+
+    # OpenCL support requires version 1.2 available 10.8+
+    if {${os.major} > 11} {
+        configure.args-replace --disable-opencl --enable-opencl
     }
 
     # Apple GCC has problems with SIMD intrinsics and -Werror=no-missing-prototypes.
@@ -346,12 +359,9 @@ variant gpl2 description {Enable GPL code, license will be GPL-2+} {
 
 variant gpl3 requires gpl2 description {Enable GPL code, license will be GPL-3+} {
     configure.args-append   --enable-version3 \
-                            --enable-libopencore-amrnb \
-                            --enable-libopencore-amrwb \
                             --enable-libsmbclient
 
-    depends_lib-append      port:opencore-amr \
-                            port:samba3
+    depends_lib-append      port:samba3
 
     license                 GPL-3+
 }
@@ -440,7 +450,6 @@ notes "
 *******      libx264
 *******      libx265
 *******      libxvid
-*******      opencore-amr
 *******
 ******* To include all nonfree, GPLed and LGPL code use variant +nonfree.
 ******* To remove nonfree and GPLed code leaving only LGPL code remove the
