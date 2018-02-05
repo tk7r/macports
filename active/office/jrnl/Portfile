@@ -4,8 +4,8 @@ PortSystem          1.0
 PortGroup           github 1.0
 PortGroup           python 1.0
 
-github.setup        maebert jrnl 1.9.0 v
-revision            3
+github.setup        maebert jrnl 1.9.8
+revision            1
 maintainers         g5pw openmaintainer
 categories          office
 description         ${name} is a simple journal application for your command line.
@@ -26,7 +26,8 @@ depends_lib         port:py${python.version}-parsedatetime \
                     port:py${python.version}-keyring \
                     port:py${python.version}-six \
                     port:py${python.version}-dateutil \
-                    port:py${python.version}-tzlocal
+                    port:py${python.version}-tzlocal \
+                    port:py${python.version}-gnureadline
 
-checksums           rmd160  520411bcba201a228510bdb6f39d1f9d7a40c184 \
-                    sha256  ebc5f8c2efe39f90f82cbaf37b0e137576a39c966ebbaa9db3aa37278ab7462a
+checksums           rmd160  0da5f010f026c620cae5b9db736a0a7007adf922 \
+                    sha256  2b83281ffb14086581ee4a3ebbd57513db8b6af7cc6180e61b3d7b22f31fb702
