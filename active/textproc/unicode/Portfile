@@ -4,7 +4,7 @@ PortSystem          1.0
 
 name                unicode
 version             2.4
-revision            2
+revision            1
 categories          textproc
 platforms           darwin
 maintainers         ryandesign openmaintainer
@@ -39,8 +39,6 @@ destroot {
 }
 
 if {${name} eq ${subport}} {
-    revision            0
-
     description         displays properties for a given Unicode character \
                         or searches for a given character name
 
@@ -55,8 +53,6 @@ if {${name} eq ${subport}} {
 }
 
 subport paracode {
-    revision            0
-
     description         converts UTF-8 input to use different codepoints
 
     long_description    ${subport} exploits the full power of the Unicode \
