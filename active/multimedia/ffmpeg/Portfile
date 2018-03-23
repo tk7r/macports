@@ -9,8 +9,8 @@ PortGroup           active_variants 1.1
 name                ffmpeg
 conflicts           ffmpeg-devel
 epoch               1
-version             3.4.1
-revision            3
+version             3.4.2
+revision            1
 license             LGPL-2.1+
 categories          multimedia
 maintainers         lausa.at:thomas.kotzian
@@ -57,8 +57,9 @@ master_sites        http://www.ffmpeg.org/releases/
 
 use_xz              yes
 
-checksums           rmd160  0cad66d5bee31586fa1885794140ccad1a348b0b \
-                    sha256  5a77278a63741efa74e26bf197b9bb09ac6381b9757391b922407210f0f991c0
+checksums           rmd160  97751ae03808242ced7cc9495f999a3b1760325c \
+                    sha256  2b92e9578ef8b3e49eeab229e69305f5f4cbc1fdaa22e927fc7fca18acccd740 \
+                    size    8478376
 
 # root directory of extracted tarball is owned by root and has permissions 700
 # set to 755 to facilitate maintenance
@@ -71,10 +72,8 @@ depends_build       port:pkgconfig \
                     port:gmake \
                     port:texinfo
 
-# libvpx is static only so can be considered a build dependency (#47934)
-
-depends_build-append \
-                    port:libvpx
+# libvpx 1.7.0 now provides a shared library
+# move dependency from depends_build to depends_lib
 
 depends_lib         port:lame \
                     port:libiconv \
@@ -86,6 +85,7 @@ depends_lib         port:lame \
                     port:libmodplug \
                     port:libass \
                     port:libbluray \
+                    port:libvpx \
                     port:gnutls \
                     port:libssh \
                     port:openjpeg \
@@ -154,6 +154,7 @@ configure.args      --enable-swscale \
                     --enable-fontconfig \
                     --enable-libfreetype \
                     --enable-libfribidi \
+                    --disable-jack \
                     --disable-libopencore-amrnb \
                     --disable-libopencore-amrwb \
                     --disable-libxcb \
@@ -181,7 +182,7 @@ platform darwin {
 
     # as of 1.6.0 libvpx only supports darwin 10 or later
     if {${os.major} < 10} {
-        depends_build-delete port:libvpx
+        depends_lib-delete port:libvpx
         configure.args-replace --enable-libvpx --disable-libvpx
     }
 
@@ -279,7 +280,7 @@ if {[variant_isset universal]} {
         lappend merger_configure_env($arch)  ASFLAGS='-arch ${arch}'
     }
     if {[string match "*86*" ${configure.universal_archs}]} {
-        depends_build-append port:yasm
+        depends_build-append port:nasm
     }
     lappend merger_configure_args(i386) --enable-x86asm
     lappend merger_configure_args(x86_64) --enable-x86asm
@@ -287,7 +288,7 @@ if {[variant_isset universal]} {
     configure.args-append --arch=${configure.build_arch}
     configure.env-append  ASFLAGS='[get_canonical_archflags]'
     if {${build_arch} eq "i386" || ${build_arch} eq "x86_64"} {
-        depends_build-append port:yasm
+        depends_build-append port:nasm
         configure.args-append --enable-x86asm
     }
 }
@@ -344,6 +345,13 @@ if {[variant_isset high10]} {
     require_active_variants x264 high10
 } else {
     require_active_variants x264 "" high10
+}
+
+variant jack description {Enable jack library and indev support} {
+# jack will autoconfigure if not disabled
+    depends_lib-append      port:jack
+    configure.args-delete   --disable-jack \
+                            --disable-indev=jack
 }
 
 variant gpl2 description {Enable GPL code, license will be GPL-2+} {
