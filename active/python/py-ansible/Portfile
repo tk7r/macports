@@ -19,9 +19,9 @@ homepage            https://github.com/ansible/ansible
 description         SSH-based configuration management and deployment system
 
 distname            ansible-${version}
-checksums           rmd160  ba225374cf8c189fe22f8c0cfa721dd1089af137 \
-                    sha256  a7dc17a33ba5cd31f91e6c2a61ec8aec36605fb130d255aa22da11a0c1dc5b03 \
-                    size    11873976
+checksums           rmd160  9dc944313c7582cfe4c8686bc315f4e6158b750d \
+                    sha256  a1ab8e0f13e79a20661ad6546f45a142afeaeb664deb2c290e32362d8ae5b618 \
+                    size    11773769
 
 conflicts           ansible
 
