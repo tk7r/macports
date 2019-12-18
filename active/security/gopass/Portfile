@@ -1,0 +1,24 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+
+PortSystem          1.0
+PortGroup           golang 1.0
+
+go.setup            github.com/gopasspw/gopass 1.8.6
+categories          security
+maintainers         none
+license             MIT
+
+description         a simple but powerful password manager for your terminal.
+
+long_description    100% API-compatible to pass (https://www.passwordstore.org) \
+                    Support for multiple stores, uses git by default
+
+homepage            https://www.gopass.pw
+
+checksums           rmd160  085db83140553cf38a6cf134e25c16d8e017609c \
+                    sha256  395408a3dc9c3db2b5c200b8722a13a60898c861633b99e6e250186adffd1370 \
+                    size    15
+
+destroot {
+    xinstall -m 0755 ${worksrcpath}/${name} ${destroot}${prefix}/bin/
+}
