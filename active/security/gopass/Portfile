@@ -3,9 +3,9 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/gopasspw/gopass 1.8.6
+go.setup            github.com/gopasspw/gopass 1.8.6 v
 categories          security
-maintainers         none
+maintainers         nomaintainer
 license             MIT
 
 description         a simple but powerful password manager for your terminal.
@@ -14,11 +14,33 @@ long_description    100% API-compatible to pass (https://www.passwordstore.org) 
                     Support for multiple stores, uses git by default
 
 homepage            https://www.gopass.pw
+master_sites        https://github.com/gopasspw/gopass/archive/
 
-checksums           rmd160  085db83140553cf38a6cf134e25c16d8e017609c \
-                    sha256  395408a3dc9c3db2b5c200b8722a13a60898c861633b99e6e250186adffd1370 \
-                    size    15
+distfiles           v${version}.tar.gz
+
+checksums           rmd160  f9b80b4d36d0689e201be93846cb5164305a5463 \
+                    sha256  77bbf6ed9ecdcf153f40bdaa014835fe99ed505762b20f8d33be1c2f72199fdf \
+                    size    7072723
+
+
+variant             docs description {Build the documentation} {
+    depends_build-append port:multimarkdown
+}
+
+post-build {
+    if {[variant_isset docs]} {
+        system -W ${worksrcpath}/docs "multimarkdown --to=html --batch *.md"
+    }
+}
 
 destroot {
     xinstall -m 0755 ${worksrcpath}/${name} ${destroot}${prefix}/bin/
+
+    set docdir ${prefix}/share/doc/${name}
+    xinstall -m 755 -d ${destroot}${docdir}
+    xinstall -m 644 -W ${worksrcpath} LICENSE README.md CHANGELOG.md ${destroot}${docdir}
+
+    if {[variant_isset docs]} {
+        file copy ${worksrcpath}/docs ${destroot}${docdir}
+    }
 }
