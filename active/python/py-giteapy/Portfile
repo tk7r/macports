@@ -1,0 +1,43 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-giteapy
+#python.rootname     PyYAML
+version             1.0.7
+revision            0
+categories-append   devel
+platforms           darwin
+license             MIT
+
+python.versions     27 35 36 37 38
+
+maintainers         openmaintainer
+
+description         Gitea Python SDK
+long_description    Python SDK for Gitea - A painless, self-hosted Git service
+
+homepage            https://github.com/dblueai/giteapy
+
+master_sites        https://github.com/dblueai/giteapy/archive/
+distfiles           ${version}.tar.gz
+
+checksums           rmd160  f23f9bb87b3c9f06862704c7cf1453643efc9451 \
+                    sha256  121ede8abeedee6bf68702f99712a8526e817fe5084fab85bf103f04b4170a5a \
+                    size    150933
+
+if {${name} ne ${subport}} {
+#    patchfiles          patch-setup.py
+
+    post-patch {
+        reinplace "s|__PREFIX__|${prefix}|g" ${worksrcpath}/setup.py
+    }
+
+    post-destroot {
+        set docdir ${prefix}/share/doc/${subport}
+        xinstall -m 755 -d ${destroot}${docdir}
+    }
+
+    livecheck.type      none
+}
