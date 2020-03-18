@@ -1,0 +1,28 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+
+PortSystem          1.0
+PortGroup           cmake 1.1
+
+name                timew
+version             1.2.0
+maintainers         nomaintainer
+
+categories          office
+description         Timewarrior is a command-line time tracking application
+long_description    Timewarrior tracks and reports time. \
+                    Timewarrior is a command line time tracking application, which \
+                    allows you to record time spent on activities. You may be tracking \
+                    your time for curiosity, or because your work requires it. At its \
+                    simplest, you tell it to start and stop tracking time.
+
+platforms           darwin
+license             MIT
+
+homepage            https://timewarrior.org/
+master_sites        https://github.com/GothenburgBitFactory/timewarrior/releases/download/v${version}/
+
+checksums           rmd160  6d5adba8cd2223fc1c705f404bb3f02add862838 \
+                    sha256  2c4d153105a32536ae328038246ebd846a5abd96df7ed29c11100866eaed8e3c \
+                    size    181477
+
+cmake.out_of_source yes
